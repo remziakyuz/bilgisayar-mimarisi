@@ -5,13 +5,34 @@
 \label{ch:sayi-sistemleri}
 \bolumfoto[İnsanlığın bilinen en eski yapısı olan Göbekli Tepe, uygarlığın başlangıç noktasıdır. Sayı sistemleri de bilgisayar biliminin başlangıç noktasıdır: her şey ikilik tabanda bir sayıyla başlar.]{gorseller/ekA-gobeklitepe.jpg}{Göbekli Tepe -- Şanlıurfa}
 
+\begin{tcolorbox}[
+    colback=blokyesil!15,
+    colframe=sinyalyesil!60!black,
+    title={\textbf{Öğrenme Hedefleri}},
+    fonttitle=\bfseries,
+    rounded corners,
+    boxrule=0.8pt
+]
+Bu eki tamamladığınızda aşağıdakileri yapabileceksiniz:
+\begin{itemize}[nosep, leftmargin=*]
+    \item İkilik, sekizlik ve on altılık tabanlar arasında dönüşüm yapmak.
+    \item İkilik tabanda toplama, çıkarma ve çarpma işlemlerini elle gerçekleştirmek.
+    \item İşaret-büyüklük, bire tümleyen ve ikiye tümleyen gösterimlerini karşılaştırmak.
+    \item Bir sayının ikiye tümleyen gösterimini bulmak ve taşma koşullarını belirlemek.
+    \item Gray kodunun yapısını ve kullanım alanlarını açıklamak.
+    \item İKO (BCD) gösterimini ve onluk tabanlı aritmetikteki rolünü tanımlamak.
+    \item ASCII ve Unicode karakter kodlama standartlarını açıklamak.
+    \item IEEE~754 kayan nokta gösteriminde bir sayıyı bileşenlerine ayırmak ve geri birleştirmek.
+\end{itemize}
+\end{tcolorbox}
+
 Bu ekte, bilgisayar mimarisinin temelini oluşturan sayı sistemleri ve kodlama yöntemleri ele alınmaktadır. İkilik taban, taban dönüşümleri, işaretli sayı gösterimleri ve karakter kodlama gibi konular, kitabın ana bölümlerinde sıkça başvurulan ön bilgileri oluşturur.
 
 % =====================================================
 \section{İkilik Tabanda İşlemler}
 \label{sec:ikilik-taban}
 
-Günlük hayatta 10'luk tabanı kullanırız çünkü on ayrı rakamımız (0--9) vardır. İkilik taban\index{ikilik taban} ise yalnızca iki rakamdan --- 0 ve 1 --- oluşur. Bu tabanda ``2'' rakamı yoktur; tıpkı 10'luk tabanda ``10'' diye tek bir rakam olmadığı gibi. Sayısal devrelerin doğal dili ikilik taban olduğu için bilgisayar mimarisinin temelini oluşturur.
+Günlük hayatta 10'luk tabanı kullanırız çünkü on ayrı rakamımız (0--9) vardır. İkilik taban\index{ikilik taban} ise yalnızca iki rakamdan (0 ve 1) oluşur. Bu tabanda ``2'' rakamı yoktur; tıpkı 10'luk tabanda ``10'' diye tek bir rakam olmadığı gibi. Sayısal devrelerin doğal dili ikilik taban olduğu için bilgisayar mimarisinin temelini oluşturur.
 
 \subsection{Taban Değiştirme İşlemleri}
 
@@ -236,7 +257,7 @@ Onaltılık tabana çevirmek için basamaklar dörderli gruplanır:
 \section{İşaretli Sayılar}
 \label{sec:isaretli-sayilar}
 
-Şimdiye kadar hep sıfır ve pozitif sayılarla çalıştık. Peki ya eksi sayıları nasıl göstereceğiz? Bellekte saklanan bir bit dizisinin ``pozitif mi, negatif mi'' olduğunu donanım kendiliğinden bilemez --- bu tamamen programcının ya da derleyicinin tercihine bağlıdır. Aynı bit dizisi, kullanılan buyruğa göre hem işaretli hem de işaretsiz bir sayı olarak yorumlanabilir.
+Şimdiye kadar hep sıfır ve pozitif sayılarla çalıştık. Peki ya eksi sayıları nasıl göstereceğiz? Bellekte saklanan bir bit dizisinin ``pozitif mi, negatif mi'' olduğunu donanım kendiliğinden bilemez; bu tamamen programcının ya da derleyicinin tercihine bağlıdır. Aynı bit dizisi, kullanılan buyruğa göre hem işaretli hem de işaretsiz bir sayı olarak yorumlanabilir.
 
 Eksi sayıları ikilik tabanda göstermek için tarih boyunca birçok yöntem önerilmiştir. Bu yöntemlerin ortak noktası, sayının en soldaki bitini (en anlamlı bit) işaret bilgisi için ayırmaktır: bu bit 1 ise sayı eksi, 0 ise artı kabul edilir. Tablo~\ref{tab:isaretli-yontemler}'de dört farklı yöntemle 4 bitlik gösterimler karşılaştırmalı olarak verilmiştir.
 
@@ -481,7 +502,7 @@ Sonuç $1110$, ikiye tümleyen düzeninde $-2$'dir. Beklenen sonuç da $3 + (-5)
 
 İşaretsiz sayılarla çalışılırken ise taşma kavramı yerine \textbf{elde}\index{elde} (İngilizcesi: \textit{carry}) kavramı kullanılır. En anlamlı bitten bir elde çıkışı oluşursa sonuç $n$ bite sığmamış demektir; bu durum elde bayrağı (carry flag) ile işaretlenir. İşaretli ve işaretsiz taşmanın farklı bayraklarla izlendiğine dikkat ediniz: işlemciler genellikle hem elde (C) hem de taşma (V) bayraklarını ayrı ayrı günceller.
 
-\begin{bilginot}[Ariane 5 --- Taşmanın Bedeli]
+\begin{bilginot}[Ariane 5: Taşmanın Bedeli]
 4~Haziran 1996'da Avrupa Uzay Ajansı'nın Ariane~5 roketi, fırlatılışından 37~saniye sonra yörüngeden saptı ve infilak etti. Kaza raporunda sorunun, uçuş kontrol yazılımında 64~bitlik bir kayan nokta değerinin 16~bitlik işaretli bir tam sayıya dönüştürülmesi sırasında oluşan bir taşmadan kaynaklandığı tespit edildi. Roketin yanal hız değeri 16~bitin gösterebileceği $\pm 32\,767$ aralığını aştığında yazılım kural dışı durumu tetikledi ve yedek sistem de aynı hataya düştü. Yaklaşık 370~milyon dolarlık kayıpla sonuçlanan bu olay, taşma denetiminin ne denli önemli olduğunu gösteren en çarpıcı örneklerden biridir.
 \end{bilginot}
 
@@ -512,7 +533,7 @@ Gray Kodu, Bell Laboratuvarları'nda çalışan Frank Gray tarafından bulunmuş
 \end{tabular}
 \end{table}
 
-İkilik tabandaki bir sayıyı Gray koduna çevirmek için basit bir kural vardır: en soldaki (en anlamlı) bit aynen korunur; sonraki her Gray biti, ikilik sayının o basamağı ile bir soldaki basamağının ÖZEL VEYA (XOR) işlemiyle elde edilir. Tersi yönde ise Gray kodundan ikilik tabana çevirirken, en soldaki bit yine aynen korunur ve sonraki her ikilik bit, bir önceki ikilik bit ile o konumdaki Gray bitinin XOR'u olarak hesaplanır.
+İkilik tabandaki bir sayıyı Gray koduna çevirmek için basit bir kural vardır: en soldaki (en anlamlı) bit aynen korunur; sonraki her Gray biti, ikilik sayının o basamağı ile bir soldaki basamağının Dışlayan VEYA (XOR) işlemiyle elde edilir. Tersi yönde ise Gray kodundan ikilik tabana çevirirken, en soldaki bit yine aynen korunur ve sonraki her ikilik bit, bir önceki ikilik bit ile o konumdaki Gray bitinin XOR'u olarak hesaplanır.
 
 \begin{ornek}[A.21]
 $(13)_{10}$ sayısını Gray koduna çevirin.
@@ -658,7 +679,7 @@ Ekrana basılacak harflerin ve her türlü noktalama işaretlerinin ikilik taban
 
 Genişletilmiş ASCII tablolarının ülkeler arası uyumsuzluk sorunu, 1991 yılında Unicode standardı ile kökten çözülmüştür. Unicode, dünyadaki tüm yazı sistemlerini kapsayan evrensel bir karakter kümesidir ve günümüzde 150\,000'den fazla karakter tanımlamaktadır. Her karaktere ``kod noktası'' (İngilizcesi: \textit{code point}) adı verilen benzersiz bir numara atanır; örneğin büyük A harfi U+0041, Türkçe ğ harfi U+011F koduna sahiptir.
 
-Unicode karakterlerini bellekte saklamak için farklı kodlama biçimleri kullanılır. Bunların en yaygını \textbf{UTF-8}'dir\index{UTF-8}. UTF-8 değişken uzunluklu bir kodlamadır: her karakter 1 ile 4 bayt arasında yer kaplar. ASCII ile tam uyumludur --- ilk 128 karakter (U+0000 ile U+007F arası) aynen tek bir baytla gösterilir. Tablo~\ref{tab:utf8-kodlama}'da her bayt sayısı için kod noktası aralığı ve bayt deseni gösterilmiştir; baştaki sabit bitler (\texttt{110}, \texttt{1110}, vb.) bayt sayısını, \texttt{10} öneki ise devam baytını belirtir.
+Unicode karakterlerini bellekte saklamak için farklı kodlama biçimleri kullanılır. Bunların en yaygını \textbf{UTF-8}'dir\index{UTF-8}. UTF-8 değişken uzunluklu bir kodlamadır: her karakter 1 ile 4 bayt arasında yer kaplar. ASCII ile tam uyumludur: ilk 128 karakter (U+0000 ile U+007F arası) aynen tek bir baytla gösterilir. Tablo~\ref{tab:utf8-kodlama}'da her bayt sayısı için kod noktası aralığı ve bayt deseni gösterilmiştir; baştaki sabit bitler (\texttt{110}, \texttt{1110}, vb.) bayt sayısını, \texttt{10} öneki ise devam baytını belirtir.
 
 \begin{table}[H]
 \centering
@@ -888,15 +909,15 @@ $-6{,}625$ sayısını IEEE~754 tek duyarlı biçimde gösterin.
 
 \textbf{Çözüm:}
 
-\textit{Adım 1 --- İşaret biti:} Sayı negatif olduğu için $s = 1$.
+\textit{Adım 1 (İşaret biti):} Sayı negatif olduğu için $s = 1$.
 
-\textit{Adım 2 --- İkilik tabana çevirme:} $6 = (110)_2$; kesir kısmı: $0{,}625 = 0{,}5 + 0{,}125 = 2^{-1} + 2^{-3} = (0{,}101)_2$. Dolayısıyla $6{,}625 = (110{,}101)_2$.
+\textit{Adım 2 (İkilik tabana çevirme):} $6 = (110)_2$; kesir kısmı: $0{,}625 = 0{,}5 + 0{,}125 = 2^{-1} + 2^{-3} = (0{,}101)_2$. Dolayısıyla $6{,}625 = (110{,}101)_2$.
 
-\textit{Adım 3 --- Normalleştirme:} Noktayı sola kaydırarak $1{,}10101 \times 2^2$ elde edilir.
+\textit{Adım 3 (Normalleştirme):} Noktayı sola kaydırarak $1{,}10101 \times 2^2$ elde edilir.
 
-\textit{Adım 4 --- Üs hesabı:} Gerçek üs $= 2$; saklanan üs $= 2 + 127 = 129 = (10000001)_2$.
+\textit{Adım 4 (Üs hesabı):} Gerçek üs $= 2$; saklanan üs $= 2 + 127 = 129 = (10000001)_2$.
 
-\textit{Adım 5 --- Kesir alanı:} Örtük 1 atılır, kalan $10101$ sağdan sıfırlarla 23 bite tamamlanır: $10101000000000000000000$.
+\textit{Adım 5 (Kesir alanı):} Örtük 1 atılır, kalan $10101$ sağdan sıfırlarla 23 bite tamamlanır: $10101000000000000000000$.
 
 Sonuç:
 \[
@@ -932,6 +953,38 @@ Normalleştirme: $1{,}\overline{1001}\;1001\ldots \times 2^{-4}$. İşaret: $s =
 Geri dönüşümde elde edilen değer tam olarak $0{,}1$ değildir; yaklaşık $0{,}100000001490\ldots$ olur. Bu fark, kayan nokta aritmetiğinde \textbf{yuvarlama hatası}\index{yuvarlama hatası} olarak bilinir ve bilgisayar aritmetiğinin temel sınırlamalarından biridir.
 \end{ornek}
 
+
+% =====================================================
+% A.7 Yanılgılar ve Tuzaklar
+% =====================================================
+\section{Yanılgılar ve Tuzaklar}
+\label{sec:yanilgilar-tuzaklar-sayi-sistemleri}
+
+Sayı sistemleri ve kodlama yöntemleri ilk bakışta mekanik kurallar bütünü gibi görünse de uygulamada sürpriz hatalar doğuran pek çok yanılgı ve tuzak barındırır\index{yanılgılar ve tuzaklar}. Sezginin yanıltıcı olduğu bu noktalarda küçük bir kavram kargaşası, yazılım hatalarına ya da donanım tasarımında beklenmeyen davranışlara yol açabilir.
+
+\yanilgi{İkiye tümleyende en yüksek değerli bit yalnızca işaret bitidir ve farklı işlenir}
+$n$-bitlik ikiye tümleyen gösteriminde en yüksek değerli bit, $-2^{n-1}$ ağırlığına sahip sıradan bir bit konumudur; geri kalan bitler ise $+2^{n-2}, +2^{n-3}, \ldots, +2^0$ ağırlıklarıyla katkıda bulunur. Toplama ve çıkarma işlemleri, bu bit için özel bir kural gerektirmeksizin modüler aritmetikle gerçekleştirilir. Örneğin 4-bitlik gösterimde $1101_2$ değeri $-3$'tür: $-8 + 4 + 0 + 1 = -3$. Donanım toplayıcısı bu sayıyı diğerlerinden farklı biçimde işlemez; tüm bitler aynı devre kurallarına tabidir. ``İşaret biti ayrı hesaplanır'' yanılgısı, konunun tersine tümleyen ve işaret-büyüklük gösterimleriyle birlikte öğrenilmesinden kaynaklanır; oysa ikiye tümleyene geçilince bu ayrım ortadan kalkar.
+
+\tuzak{İşaretli ve işaretsiz karşılaştırmayı karıştırmak}
+C ve C++ dillerinde \texttt{int} ile \texttt{unsigned int} türleri aynı bit kalıbını farklı yorumlar. İki değer karşılaştırıldığında derleyici, kurallar gereği \texttt{int} tarafını \texttt{unsigned}'a dönüştürür. Bu durumda $-1$ değeri, 32-bitlik gösterimde $2^{32}-1 = 4\,294\,967\,295$ olarak yorumlanır ve karşılaştırma ``\texttt{-1 > 1}'' ifadesi beklenmedik biçimde doğru sonuç verir. Döngülerde \texttt{i >= 0} koşuluyla kullanılan işaretsiz sayaç hiç sonlanmaz; çünkü işaretsiz tamsayılar her zaman sıfırdan büyük ya da eşittir. Bu tuzağa düşmemek için karşılaştırma operandlarının türlerini açıkça eşleştirmek gerekir.
+
+\yanilgi{ASCII Türkçe karakterleri kapsar}
+ASCII, 7~bit ile yalnızca 128 karakter tanımlar; bunlar temel Latin harfleri, rakamlar ve noktalama işaretleridir. Ğ, ğ, İ, ı, Ö, ö, Ş, ş, Ü, ü gibi Türkçe karakterler bu kümede yer almaz. Bu karakterleri aktarmak için ISO~8859-9 (Latin-5) ya da UTF-8 kodlaması gereklidir. ``Bilgisayar zaten ASCII kullanıyorsa Türkçe de çalışır'' yanılgısı, tarihsel olarak Türkçe metin dosyalarında veri bozulmasına ve platformlar arası uyumsuzluğa yol açmıştır. UTF-8, ASCII ile tam geriye dönük uyumlu olduğundan ve tüm Unicode karakterlerini desteklediğinden çağdaş sistemlerde tercih edilen standarttır.
+
+\tuzak{Kayan nokta sayılarını \texttt{==} ile karşılaştırmak}
+İkili gösterim, $0{,}1$ gibi pek çok onluk kesri tam olarak ifade edemez; bu nedenle $0{,}1 + 0{,}2$ işleminin sonucu IEEE~754 tek duyarlıda tam olarak $0{,}3$ değil $0{,}30000001192\ldots$ olur. Eşitlik karşılaştırması iki kayan nokta sayısının bit bit örtüşmesini arar; art arda yapılan hesaplar kümülâtif yuvarlama hatası biriktirdiğinden aynı matematiksel değer farklı bit kalıplarına dönüşebilir. Doğru yaklaşım $|a - b| < \varepsilon$ biçiminde bir hata payı denetimidir; burada $\varepsilon$ değeri uygulamaya özgü bir tolerans sınırıdır. Özellikle döngü sayacı ve durdurma koşulu olarak kayan nokta karşılaştırması kullanmak ciddi hataya kapı aralar.
+
+\yanilgi{Kayan nokta aritmetiği sınırsız hassasiyet sunar}
+IEEE~754 tek duyarlı biçimde kesir alanı yalnızca 23 bit genişliğindedir; bu, yaklaşık 7~onluk basamak duyarlığa karşılık gelir. Çift duyarlıda bu değer 15--16~basamağa çıkar, ancak yine de sonsuza değil. Bilimsel hesaplamalarda art arda gerçekleştirilen toplama ve çıkarma işlemleri bağıl hata büyüklüğünü artırabilir (felaket iptali); döngüsel toplama yöntemi (Kahan toplamı) bu hatayı hafifletir. Yapay zeka uygulamalarında kullanılan yarım duyarlı (16~bit) biçim ise yalnızca 3~onluk basamak hassasiyet sağlar. ``Kayan nokta kesindir, tamsayı gibi güvenilir'' anlayışı, finans ve ölçüm yazılımlarında ciddi hatalara neden olmuştur.
+
+\tuzak{BCD ile ikilik gösterimi karıştırmak}
+BCD'de her onluk basamak bağımsız olarak 4~bit ile kodlanır: $29_{10}$ değeri BCD'de \texttt{0010 1001} olurken ikilik gösterimde \texttt{00011101} olur. Bu iki gösterim görünüşte benzer bit dizileri üretebilir, ancak değerleri farklıdır. BCD toplamasında her 4-bitlik grup için kural dışı durum denetimi (sonuç 9'u aşıyorsa 6 eklenir) gereklidir; standart ikilik toplayıcı bu düzeltmeyi otomatik yapmaz. Donanım ve yazılım arasında veri aktarımında kodlama biçiminin belgelenmemesi, BCD ile ikilik verinin birbirinin yerine yorumlanmasına ve yanlış sayı gösterimine yol açar.
+
+\tuzak{Negatif ikilik sayı çevrilirken mutlak değer adımını atlamak}
+Bir onluk negatif sayıyı ikiye tümleyen gösterimine dönüştürmenin klasik yöntemi şudur: (1) sayının mutlak değerini ikilik tabanda yaz, (2) tüm bitleri tersle, (3) sonuca 1 ekle. Yaygın hata, mutlak değer alınmadan doğrudan negatif sayının basamakları üzerinden işlem yapmaktır. Örneğin $-5$'i 4~bitte göstermek için önce $5 = 0101_2$, sonra tersle $1010_2$, son olarak $1 + 1010_2 = 1011_2$ adımları izlenir. ``Eksi işaretini kor, kalanı çevir'' yaklaşımı hatalı sonuç verir ve doğrulama yapılmadan donanım tasarımına taşındığında zorlu hata ayıklama süreçlerine kapı aralar.
+
+\yanilgi{Onaltılık gösterim yalnızca bir yazım biçimidir, 16 tabanıyla ilgisi yoktur}
+Onaltılık (hex) gösterim, 16 tabanlı bir sayı sistemidir: her basamak $0$'dan $\text{F}$'ye kadar 16 farklı değer alır ve $n$. konumdaki basamak $16^n$ ile ağırlıklandırılır. ``Hex yalnızca ikilik bitlerin okunabilir biçimde gösterilmesidir'' düşüncesi bu sistemi indirger. Onaltılık basamaklar ikilik gruplarla doğrudan eşleştiğinden (her hex basamağı 4~bit) dönüşüm kolaydır; ancak bu kolaylık, hex'in bağımsız bir sayı sistemi olduğu gerçeğini değiştirmez. Aritmetik işlemler hex basamaklarına doğrudan uygulanabilir: $\text{A}_{16} + \text{B}_{16} = \text{15}_{16}$ hesabı ikilik tabana başvurmadan yapılabilir.
 
 % =====================================================
 \section*{Özet}

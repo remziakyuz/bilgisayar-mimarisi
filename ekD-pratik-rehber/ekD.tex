@@ -5,6 +5,25 @@
 \label{app:pratik-rehber}
 \bolumfoto[Sümela Manastırı, sarp kayalıklara tutunarak yüzyıllar boyunca ayakta kalmıştır. Bu ekteki uygulamalar da öğrenilen kuramsal bilgiyi somut projelere dönüştürerek kalıcı kılar.]{gorseller/ekD-sumela.jpg}{Sümela Manastırı -- Trabzon}
 
+\begin{tcolorbox}[
+    colback=blokyesil!15,
+    colframe=sinyalyesil!60!black,
+    title={\textbf{Öğrenme Hedefleri}},
+    fonttitle=\bfseries,
+    rounded corners,
+    boxrule=0.8pt
+]
+Bu eki tamamladığınızda aşağıdakileri yapabileceksiniz:
+\begin{itemize}[nosep, leftmargin=*]
+    \item RISC-V araç zincirini (RARS, Venus, Spike) kurmak ve kullanmak.
+    \item Temel Verilog yapılarını (modül, atama, \texttt{always} bloğu) kullanarak basit sayısal devreler tasarlamak.
+    \item Bir yazmaç öbeğini Verilog ile gerçekleştirmek ve benzetimini yapmak.
+    \item Çevirici dilde yazılmış bir programı benzetimlikte adım adım çalıştırarak hata ayıklamak.
+    \item Tek vuruşluk bir RISC-V işlemcisini Verilog modülleriyle birleştirmek.
+    \item Proje çıktılarını belirlenen değerlendirme ölçütlerine göre sınamak.
+\end{itemize}
+\end{tcolorbox}
+
 Bu ekte, kitap boyunca öğrenilen kavramları uygulamaya dönüştürmek için gerekli araçlar, temel Verilog bilgisi ve üç aşamalı bir proje seti sunulmaktadır. Amaç, öğrencilerin hem yazılım hem de donanım düzeyinde bilgisayar mimarisini deneyimlemesidir.
 
 % =============================================================
@@ -439,7 +458,7 @@ C & Önbellek ve Dallanma Öngörücüsü & İleri & 6, 7      & 4--5 hafta \\
 \textbf{Test stratejisi:} RARS'ta çalıştırılan küçük programlarla (toplama, döngü, özyinelemeli fonksiyon) yazmaç değerlerini karşılaştırın.
 
 \begin{bilginot}[Buyruk Çözme İpucu]
-RV32I buyruk biçimleri sabit genişliktedir (32~bit). Bölüm~\ref{chap:buyruk-kumesi}'deki biçim tablosunu referans alarak bit maskeleme ile alanları çıkarabilirsiniz. Örneğin \texttt{opcode} alanı \texttt{buyruk \& 0x7F} ile elde edilir.
+RV32I buyruk biçimleri sabit genişliktedir (32~bit). Bölüm~\ref{chap:buyruk-kumesi}'teki biçim tablosunu referans alarak bit maskeleme ile alanları çıkarabilirsiniz. Örneğin \texttt{opcode} alanı \texttt{buyruk \& 0x7F} ile elde edilir.
 \end{bilginot}
 
 
@@ -449,7 +468,7 @@ RV32I buyruk biçimleri sabit genişliktedir (32~bit). Bölüm~\ref{chap:buyruk-
 \subsection{Proje B: Boru Hattı Benzetimliği}
 \label{sec:ekd-proje-b}
 
-\textbf{Amaç:} Bölüm~\ref{chap:boruhatti}'daki beş aşamalı boru hattını (IF--ID--EX--MEM--WB) yazılımla benzetim yaparak veri ve denetim tehlikelerini gözlemlemek.\smallskip
+\textbf{Amaç:} Bölüm~\ref{chap:boruhatti}'deki beş aşamalı boru hattını (IF--ID--EX--MEM--WB) yazılımla benzetim yaparak veri ve denetim tehlikelerini gözlemlemek.\smallskip
 
 \textbf{Gereksinimler:}
 \begin{enumerate}[leftmargin=2em]
@@ -491,9 +510,9 @@ Sonuc: 38 buyruk, 47 cevrim, BBÇ = 1,24
 \subsection{Proje C: Önbellek ve Dallanma Öngörücüsü}
 \label{sec:ekd-proje-c}
 
-\textbf{Amaç:} Bölüm~\ref{chap:bellek}'deki önbellek yapılarını ve Bölüm~\ref{chap:boruhatti}'daki dallanma öngörü tekniklerini benzetimle inceleyerek tasarım parametrelerinin başarıma etkisini ölçmek.\smallskip
+\textbf{Amaç:} Bölüm~\ref{chap:bellek}'deki önbellek yapılarını ve Bölüm~\ref{chap:boruhatti}'deki dallanma öngörü tekniklerini benzetimle inceleyerek tasarım parametrelerinin başarıma etkisini ölçmek.\smallskip
 
-\textbf{Bölüm~1 --- Önbellek Benzetimlikleri:}\index{önbellek benzetimliği}
+\textbf{Bölüm~1: Önbellek Benzetimlikleri}\index{önbellek benzetimliği}
 \begin{enumerate}[leftmargin=2em]
     \item Yapılandırılabilir parametreli bir önbellek benzetimliği yazın:
     \begin{itemize}[leftmargin=1.5em]
@@ -523,7 +542,7 @@ Sonuc: 38 buyruk, 47 cevrim, BBÇ = 1,24
 \end{tabular}
 \end{table}
 
-\textbf{Bölüm~2 --- Dallanma Öngörücüsü:}\index{dallanma öngörücüsü}
+\textbf{Bölüm~2: Dallanma Öngörücüsü}\index{dallanma öngörücüsü}
 \begin{enumerate}[leftmargin=2em]
     \item Aşağıdaki dallanma öngörü tekniklerini gerçekleyin:
     \begin{itemize}[leftmargin=1.5em]
@@ -536,7 +555,7 @@ Sonuc: 38 buyruk, 47 cevrim, BBÇ = 1,24
     \item Sonuçları karşılaştırmalı olarak sunun.
 \end{enumerate}
 
-\textbf{Bölüm~3 --- Tümleşik Analiz (isteğe bağlı):}
+\textbf{Bölüm~3: Tümleşik Analiz (isteğe bağlı)}
 
 Proje~B'deki boru hattı benzetimliğine önbellek ve dallanma öngörücüsü entegre ederek bir programa ait toplam BBÇ'yi ölçün. Farklı yapılandırmaların başarıma etkisini karşılaştırmalı grafiklerle raporlayın.
 

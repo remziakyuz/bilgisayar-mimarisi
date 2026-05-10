@@ -5,7 +5,26 @@
 \label{app:risc-v-referans}
 \bolumfoto[Celsus Kütüphanesi, antik dünyanın en büyük bilgi kaynaklarından biriydi. Bu ek de RISC-V buyruk kümesinin başvuru kaynağıdır: yazarken, okurken ve hata ayıklarken her an dönüp bakılacak bir referans.]{gorseller/ekC-efes.jpg}{Efes Antik Kenti, Celsus Kütüphanesi -- İzmir}
 
-Bu ekte, kitap boyunca kullanılan RISC-V buyruk kümesi mimarisinin özet referansı sunulmaktadır. Buyrukların ayrıntılı açıklaması Bölüm~\ref{chap:buyruk-kumesi}'te verilmiştir. İşlemci tasarımındaki buyruk biçimi detayları için Bölüm~\ref{chap:islemci-tasarimi}'ye, boru hattı düzeyindeki buyruk yürütme süreci için ise Bölüm~\ref{chap:boruhatti}'na başvurulabilir.
+\begin{tcolorbox}[
+    colback=blokyesil!15,
+    colframe=sinyalyesil!60!black,
+    title={\textbf{Öğrenme Hedefleri}},
+    fonttitle=\bfseries,
+    rounded corners,
+    boxrule=0.8pt
+]
+Bu eki tamamladığınızda aşağıdakileri yapabileceksiniz:
+\begin{itemize}[nosep, leftmargin=*]
+    \item RISC-V'in modüler yapısını ve standart uzantılarını (M, A, F, D, C, V) açıklamak.
+    \item Bir RISC-V buyruğunun ikili kodlamasını çözümleyerek buyruk biçimini (R, I, S, B, U, J) belirlemek.
+    \item RV32I buyruk kümesindeki aritmetik, mantıksal, bellek erişimi ve dallanma buyruklarını sınıflandırmak.
+    \item Yazmaç tablosunu (x0--x31) ve ABI adlandırma kurallarını kullanarak buyrukları yorumlamak.
+    \item Sözde buyrukların gerçek buyruk karşılıklarını belirlemek.
+    \item Verilen bir problemi RISC-V çevirici dili ile kodlamak.
+\end{itemize}
+\end{tcolorbox}
+
+Bu ekte, kitap boyunca kullanılan RISC-V buyruk kümesi mimarisinin özet referansı sunulmaktadır. Buyrukların ayrıntılı açıklaması Bölüm~\ref{chap:buyruk-kumesi}'te verilmiştir. İşlemci tasarımındaki buyruk biçimi detayları için Bölüm~\ref{chap:islemci-tasarimi}'da, boru hattı düzeyindeki buyruk yürütme süreci için ise Bölüm~\ref{chap:boruhatti}'de başvurulabilir.
 
 % =============================================================
 % C.1 RISC-V'in Modüler Yapısı
@@ -53,14 +72,14 @@ Taban kümenin üzerine eklenen standart uzantılar, tek harfli kısaltmalarla a
 Uzantılar birleştirilerek farklı uygulama alanlarına yönelik yapılandırmalar oluşturulur.\index{RISC-V!yapılandırma} \textbf{G} kısaltması ``genel amaçlı'' anlamına gelir ve \mbox{\textbf{IMAFD\_Zicsr\_Zifencei}} birleşimini temsil eder:
 
 \begin{itemize}
-    \item \textbf{RV32I} --- En yalın yapılandırma; küçük gömülü denetleyiciler için yeterlidir.
-    \item \textbf{RV32IMC} --- Gömülü sistemlerde yaygın; çarpma ve sıkıştırılmış buyruk desteği ekler.
-    \item \textbf{RV32GC} --- Genel amaçlı 32~bit; masaüstü ve uygulama işlemcileri için uygundur.
-    \item \textbf{RV64GC} --- Genel amaçlı 64~bit; Linux çalıştıran işlemcilerin ve sunucuların standart yapılandırmasıdır.
+    \item \textbf{RV32I}: En yalın yapılandırma; küçük gömülü denetleyiciler için yeterlidir.
+    \item \textbf{RV32IMC}: Gömülü sistemlerde yaygın; çarpma ve sıkıştırılmış buyruk desteği ekler.
+    \item \textbf{RV32GC}: Genel amaçlı 32~bit; masaüstü ve uygulama işlemcileri için uygundur.
+    \item \textbf{RV64GC}: Genel amaçlı 64~bit; Linux çalıştıran işlemcilerin ve sunucuların standart yapılandırmasıdır.
 \end{itemize}
 
 \begin{bilginot}[Bu kitapta kullanılan yapılandırma]
-Kitap boyunca \textbf{RV32I} taban buyruk kümesi kullanılmaktadır. RV32I, RISC-V mimarisinin temel kavramlarını --- yazmaç işlemleri, bellek erişimi, dallanma, alt yordam çağrıları --- öğrenmek için yeterli bir altyapı sunar. Çarpma/bölme (M), kayan nokta (F/D) ve atomik işlemler (A) gibi uzantılar ilgili bölümlerde kavramsal düzeyde ele alınmakta, ancak ayrıntılı buyruk tabloları bu ekin kapsamı dışında tutulmaktadır.
+Kitap boyunca \textbf{RV32I} taban buyruk kümesi kullanılmaktadır. RV32I, RISC-V mimarisinin temel kavramlarını (yazmaç işlemleri, bellek erişimi, dallanma, alt yordam çağrıları) öğrenmek için yeterli bir altyapı sunar. Çarpma/bölme (M), kayan nokta (F/D) ve atomik işlemler (A) gibi uzantılar ilgili bölümlerde kavramsal düzeyde ele alınmakta, ancak ayrıntılı buyruk tabloları bu ekin kapsamı dışında tutulmaktadır.
 \end{bilginot}
 
 \subsection{Ayrıcalık Düzeyleri}
@@ -200,10 +219,10 @@ Tablo~\ref{tab:ekc-rv32i}, RV32I temel buyruk kümesindeki tüm buyrukları işl
 \midrule
 \texttt{and rd, rs1, rs2}   & R & \texttt{0110011} & \texttt{111} & \texttt{0000000} & Bit düzeyi VE: rd = rs1 \& rs2 \\
 \texttt{or rd, rs1, rs2}    & R & \texttt{0110011} & \texttt{110} & \texttt{0000000} & Bit düzeyi VEYA: rd = rs1 | rs2 \\
-\texttt{xor rd, rs1, rs2}   & R & \texttt{0110011} & \texttt{100} & \texttt{0000000} & Bit düzeyi ÖZEL VEYA \\
+\texttt{xor rd, rs1, rs2}   & R & \texttt{0110011} & \texttt{100} & \texttt{0000000} & Bit düzeyi Dışlayan VEYA \\
 \texttt{andi rd, rs1, imm}  & I & \texttt{0010011} & \texttt{111} & ---          & Anlık VE: rd = rs1 \& imm \\
 \texttt{ori rd, rs1, imm}   & I & \texttt{0010011} & \texttt{110} & ---          & Anlık VEYA: rd = rs1 | imm \\
-\texttt{xori rd, rs1, imm}  & I & \texttt{0010011} & \texttt{100} & ---          & Anlık ÖZEL VEYA \\
+\texttt{xori rd, rs1, imm}  & I & \texttt{0010011} & \texttt{100} & ---          & Anlık Dışlayan VEYA \\
 \midrule
 
 % --- Kaydırma Buyrukları ---
@@ -833,7 +852,7 @@ don:
 cik:
 \end{lstlisting}
 
-Her \texttt{int} değer 4 bayt kapladığından, dizi indisi \texttt{slli} ile 2 bit sola kaydırılarak bayt ofsetine dönüştürülür. \texttt{bge} (büyük veya eşitse dallan) döngü koşulunu sınar; koşul sağlandığında döngü sonrasına atlar. \texttt{jal zero, don} koşulsuz geri atlama için kullanılır --- hedef yazmaç olarak \texttt{zero} verildiğinde dönüş adresi saklanmaz.
+Her \texttt{int} değer 4 bayt kapladığından, dizi indisi \texttt{slli} ile 2 bit sola kaydırılarak bayt ofsetine dönüştürülür. \texttt{bge} (büyük veya eşitse dallan) döngü koşulunu sınar; koşul sağlandığında döngü sonrasına atlar. \texttt{jal zero, don} koşulsuz geri atlama için kullanılır; hedef yazmaç olarak \texttt{zero} verildiğinde dönüş adresi saklanmaz.
 \end{ornek}
 
 \begin{ornek}[C.3]
@@ -871,7 +890,7 @@ int toplam(int a, int b) {
 int sonuc = toplam(3, 5);
 \end{lstlisting}
 
-\textbf{Çözüm --- Çağıran taraf (main):}
+\textbf{Çözüm: Çağıran taraf (main)}
 \begin{lstlisting}[style=riscv]
     addi a0, zero, 3       # birinci arguman: a = 3
     addi a1, zero, 5       # ikinci arguman: b = 5
@@ -879,7 +898,7 @@ int sonuc = toplam(3, 5);
     mv   s0, a0            # sonuc = donus degeri
 \end{lstlisting}
 
-\textbf{Çözüm --- İşlev gövdesi (toplam):}
+\textbf{Çözüm: İşlev gövdesi (toplam)}
 \begin{lstlisting}[style=riscv]
 toplam:
     addi sp, sp, -8        # yigit cercevesi ac (8 bayt)

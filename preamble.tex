@@ -28,6 +28,12 @@
 \definecolor{baslikrenk}{RGB}{0, 71, 133}
 \definecolor{bolumrenk}{RGB}{0, 71, 133}
 \definecolor{acikgri}{RGB}{245, 245, 245}
+\definecolor{yanilgirenk}{RGB}{180, 40, 40}   % koyu kırmızı
+\definecolor{tuzakrenk}{RGB}{180, 120, 0}      % koyu turuncu
+
+% Yanılgı ve Tuzak başlık komutları
+\newcommand{\yanilgi}[1]{\subsubsection*{{\color{yanilgirenk}\textbf{Yanılgı:}} #1}}
+\newcommand{\tuzak}[1]{\subsubsection*{{\color{tuzakrenk}\textbf{Tuzak:}} #1}}
 
 % TikZ blok şeması renkleri tikz-sekiller-makrolar.tex'te tanımlıdır.
 
@@ -51,6 +57,7 @@
 \titleformat{\subsection}
     {\normalfont\large\bfseries\color{bolumrenk!80}}
     {\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.4ex plus 0.1ex}
 
 % --- Matematik ---
 \usepackage{amsmath}
@@ -128,6 +135,14 @@
 \setlength{\textfloatsep}{10pt plus 3pt minus 2pt}
 \setlength{\floatsep}{8pt plus 2pt minus 2pt}
 \setlength{\intextsep}{8pt plus 2pt minus 2pt}
+% Sayfa sonu boşluklarını azalt: float'lara daha fazla alan ver
+\renewcommand{\topfraction}{0.9}        % Sayfanın en fazla %90'ı üstte float olabilir
+\renewcommand{\bottomfraction}{0.9}     % Sayfanın en fazla %90'ı altta float olabilir
+\renewcommand{\textfraction}{0.1}       % Sayfanın en az %10'u metin olmalı (varsayılan %20)
+\renewcommand{\floatpagefraction}{0.75} % Sadece float sayfası için en az %75 dolu olmalı
+\setcounter{topnumber}{3}               % Sayfa başına en fazla 3 üst float
+\setcounter{bottomnumber}{2}            % Sayfa başına en fazla 2 alt float
+\setcounter{totalnumber}{5}             % Sayfa başına toplam en fazla 5 float
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -135,6 +150,7 @@
     circuits.logic.US, circuits.logic.IEC, fit, patterns, matrix, automata, babel,
     decorations.pathreplacing, decorations.pathmorphing, shadows, backgrounds}
 \usepackage[section]{placeins}  % Şekillerin bölüm dışına taşmasını engeller
+\usepackage[american]{circuitikz}  % Mantık kapısı devre şemaları
 
 % TikZ global ok stili — tüm tikzpicture'larda >=Stealth varsayılan olur
 \tikzset{>=Stealth}
@@ -162,6 +178,7 @@
     extendedchars=true,
     columns=fullflexible,
     keepspaces=true,
+    texcl=true,
 }
 
 % --- Assembly/MIPS stil tanımı ---
@@ -303,6 +320,7 @@
     fonttitle=\bfseries,
     title={#1},
     enhanced,
+    breakable,
     arc=1mm,
     borderline west={3pt}{0pt}{green!60!black},
 }
@@ -389,21 +407,20 @@
 }
 \makeatother
 
-% --- Bölüm açılış fotoğrafı ---
+% --- Bölüm açılış fotoğrafı (başlıkla aynı sayfada) ---
 \newcommand{\bolumfoto}[3][]{%
-    \thispagestyle{empty}%
-    \vspace*{\fill}%
+    \par\vspace{0.6em}%
     \begin{center}%
     \begin{minipage}{\textwidth}%
     \centering
-    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{#2}\\[8pt]%
+    \includegraphics[width=0.82\textwidth,height=0.38\textheight,keepaspectratio]{#2}\\[6pt]%
     {\small\color{bolumrenk}\textit{#3}}%
-    \ifx\relax#1\relax\else\\[12pt]%
+    \ifx\relax#1\relax\else\\[8pt]%
     {\small\itshape #1}%
     \fi
     \end{minipage}%
     \end{center}%
-    \vspace*{\fill}%
+    \par\vspace{0.8em}%
     \newpage%
 }
 
