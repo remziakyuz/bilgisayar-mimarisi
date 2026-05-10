@@ -4,7 +4,7 @@ Bu dosya, kitabın sürümler arasındaki önemli değişikliklerini takip eder.
 
 ---
 
-## [0.5.0] — 2026-05-10
+## [0.4.5] — 2026-05-10
 
 ### Yeni bölüm
 - **Ek B — Sayısal Tasarım Temelleri** eklendi
